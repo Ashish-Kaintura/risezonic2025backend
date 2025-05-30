@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const BlogSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, unique: true },
+    url: String,
     description: String,
     CoverImage: String,
     Image: String,
@@ -11,9 +12,6 @@ const BlogSchema = new mongoose.Schema(
     shortdescription: String,
     longdescription: String,
     bgImage: String,
-    url: String,
-    link: String,
-    id: String,
     metacanonical: String,
     metatitle: String,
     metadescription: String,

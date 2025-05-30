@@ -12,6 +12,7 @@ const mongoose = require("mongoose");
 
 const subServiceSchema = new mongoose.Schema({
   title: { type: String, required: true },
+  CoverImage: String,
   img: String,
   intro: String,
   description: String,
@@ -27,11 +28,10 @@ const serviceSchema = new mongoose.Schema(
     description: String,
     shortdescription: String,
     longdescription: String,
+    CoverImage: String,
     bgImage: String,
     img: String,
     url: String,
-    link: String,
-    id: String,
     metacanonical: String,
     metatitle: String,
     metadescription: String,

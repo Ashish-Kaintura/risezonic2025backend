@@ -12,6 +12,20 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET a single Blog by ID
+router.get("/:id", async (req, res) => {
+  try {
+    const blog = await BlogModal.findById(req.params.id);
+    if (!blog) {
+      return res.status(404).json({ error: "Blog not found" });
+    }
+    res.json(blog);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+
 // POST a new Blog
 router.post("/", async (req, res) => {
   try {
@@ -50,6 +64,29 @@ router.delete("/:id", async (req, res) => {
     res.json({ message: "Blog deleted successfully" });
   } catch (err) {
     res.status(400).json({ error: err.message });
+  }
+});
+
+// SEARCH Blogs by title, meta title, or description
+router.get("/search/query", async (req, res) => {
+  try {
+    const { q } = req.query;
+    if (!q) {
+      return res.status(400).json({ error: "Search query is required" });
+    }
+
+    const results = await BlogModal.find({
+      $or: [
+        { title: { $regex: q, $options: "i" } },
+        { metatitle: { $regex: q, $options: "i" } },
+        { metadescription: { $regex: q, $options: "i" } },
+        { longdescription: { $regex: q, $options: "i" } }
+      ],
+    });
+
+    res.json(results);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 

@@ -23,6 +23,21 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// PATCH /api/services/:id
+router.patch("/:id", async (req, res) => {
+  try {
+    const updatedService = await Service.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true }
+    );
+    res.status(200).json(updatedService);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update service status" });
+  }
+});
+
+
 // POST create a new service
 router.post("/", async (req, res) => {
   try {

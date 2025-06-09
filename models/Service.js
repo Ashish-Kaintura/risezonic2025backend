@@ -18,7 +18,7 @@ const subServiceSchema = new mongoose.Schema({
   description: String,
   shortdescription: String,
   longdescription: String,
-  bgImage: String
+  bgImage: String,
 });
 
 const serviceSchema = new mongoose.Schema(
@@ -36,7 +36,11 @@ const serviceSchema = new mongoose.Schema(
     metatitle: String,
     metadescription: String,
     metakeywords: String,
-    SubServices: [subServiceSchema]
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+    SubServices: [subServiceSchema],
   },
   { timestamps: true }
 );

@@ -37,7 +37,6 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-
 // POST create a new service
 router.post("/", async (req, res) => {
   try {
@@ -57,7 +56,8 @@ router.put("/:id", async (req, res) => {
       req.body,
       { new: true } // returns the updated document
     );
-    if (!updatedService) return res.status(404).json({ error: "Service not found" });
+    if (!updatedService)
+      return res.status(404).json({ error: "Service not found" });
     res.json(updatedService);
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -68,7 +68,8 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const deletedService = await Service.findByIdAndDelete(req.params.id);
-    if (!deletedService) return res.status(404).json({ error: "Service not found" });
+    if (!deletedService)
+      return res.status(404).json({ error: "Service not found" });
     res.json({ message: "Service deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
